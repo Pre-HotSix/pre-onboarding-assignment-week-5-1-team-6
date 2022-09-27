@@ -7,6 +7,10 @@ export const Container = styled.div<{ isResult: boolean }>`
   border-radius: 20px;
   border: 1px solid transparent;
   margin-top: 5px;
-  padding: 15px;
+  padding: 15px 0;
   overflow-y: auto;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
