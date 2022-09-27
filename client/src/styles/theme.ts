@@ -2,6 +2,7 @@ type Colors = {
   MAIN_COLOR: string;
   BUTTON_COLOR: string;
   WHITE: string;
+  GRAY: string;
 };
 
 type FontSize = {
@@ -16,6 +17,7 @@ const colors: Colors = {
   MAIN_COLOR: '#d0e8fd',
   BUTTON_COLOR: '#357ae1',
   WHITE: '#ffffff',
+  GRAY: '#8b9095',
 };
 
 const fontSize: FontSize = {

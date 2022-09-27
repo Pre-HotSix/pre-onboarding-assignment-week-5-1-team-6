@@ -4,49 +4,35 @@ import * as S from './style';
 import { useEffect, useState } from 'react';
 import { getData } from '../../apis';
 import { Storage } from '../../utils/Storage';
-import { CheckCache } from '../../utils/CheckCache';
 import { ConvertToJson, ConvertToString } from '../../utils/Convert';
-import { Sick } from '../../utils/Types';
+import { useDispatch } from 'react-redux';
+import { change } from '../../store/searchSlice';
+import { update } from '../../store/resultSlice';
 
-let allData: any = [];
 export default function SearchBar() {
-  const [result, setResult] = useState<Sick[] | []>([]);
+  const dispatch = useDispatch();
   const [searchText, setSearchText] = useState('');
 
-  const filtering = (): Sick[] => {
-    return allData.filter((sick: Sick) => sick.sickNm.includes(searchText));
-  };
-
-  const searching = (): void => {
+  const searching = async () => {
+    dispatch(change(searchText));
     const cacheData = ConvertToJson(Storage.get(searchText));
 
     if (cacheData) {
-      setResult(cacheData);
+      dispatch(update(cacheData));
     } else {
-      const filteredData = filtering();
-      Storage.set(searchText, ConvertToString(filteredData));
-      setResult(filteredData);
+      const { data } = await getData(searchText);
+      Storage.set(searchText, ConvertToString(data));
+      dispatch(update(data));
     }
   };
-
-  useEffect(() => {
-    const isCache = CheckCache('all_data');
-    if (isCache) {
-      allData = ConvertToJson(Storage.get('all_data'));
-    } else {
-      getData().then(({ data }) => {
-        Storage.set('all_data', ConvertToString(data));
-        allData = data;
-      });
-    }
-  }, []);
 
   useEffect(() => {
     const check = setTimeout(() => {
       if (searchText.trim()) {
         searching();
       } else {
-        setResult([]);
+        dispatch(change(''));
+        dispatch(update([]));
       }
     }, 500);
 
@@ -65,7 +51,7 @@ export default function SearchBar() {
         />
         <S.SearchButton>검색</S.SearchButton>
       </S.SearchContainer>
-      <RelatedSearchTerms result={result} searchText={searchText} />
+      <RelatedSearchTerms />
     </S.Container>
   );
 }

@@ -6,6 +6,7 @@ const api = axios.create({
   },
 });
 
-export const getData = async () => {
-  return await api.get('/sick');
+export const getData = async (param: string) => {
+  console.info('calling api');
+  return await api.get(`/sick?q=${param}`);
 };
