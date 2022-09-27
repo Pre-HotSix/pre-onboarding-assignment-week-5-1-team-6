@@ -13,27 +13,28 @@ export default function SearchBar() {
   const dispatch = useDispatch();
   const [searchText, setSearchText] = useState('');
 
-  const searching = async () => {
-    dispatch(change(searchText));
-    const cacheData = ConvertToJson(Storage.get(searchText));
+  const searching = async (filterText: string) => {
+    dispatch(change(filterText));
+    const cacheData = ConvertToJson(Storage.get(filterText));
 
     if (cacheData) {
       dispatch(update(cacheData));
     } else {
-      const { data } = await getData(searchText);
-      Storage.set(searchText, ConvertToString(data));
+      const { data } = await getData(filterText);
+      Storage.set(filterText, ConvertToString(data));
       dispatch(update(data));
     }
   };
 
+  const initDispatch = () => {
+    dispatch(change(''));
+    dispatch(update([]));
+  };
+
   useEffect(() => {
     const check = setTimeout(() => {
-      if (searchText.trim()) {
-        searching();
-      } else {
-        dispatch(change(''));
-        dispatch(update([]));
-      }
+      const filterText = searchText.trim();
+      filterText ? searching(filterText) : initDispatch();
     }, 500);
 
     return () => {
