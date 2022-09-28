@@ -1,5 +1,5 @@
-const Index = () => {
-  return <div></div>;
+function Index() {
+  return <div></div>
 };
 
 export default Index;
