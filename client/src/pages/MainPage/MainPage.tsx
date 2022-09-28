@@ -5,9 +5,10 @@ import { getSearchInfos } from '../../apis/getSearch';
 import { debounce } from 'lodash';
 
 const MainPage = () => {
-  const [searchState, setSearchState] = useState<string[]>([]);
+  const [searchState, setSearchState] = useState<any>([]);
   const [currentSearch, setCurrentSearch] = useState<string>('');
   const [searchFocus, setSearchFocus] = useState<boolean>(false);
+  const [currentIndex, setCurrentIndex] = useState<any>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const delayedQuery = useCallback(
@@ -21,6 +22,7 @@ const MainPage = () => {
 
   const sendQuery = useCallback(
     async (q: string) => {
+      setCurrentIndex(null);
       const savedQuery: any = localStorage.getItem(`${q}`);
       if (JSON.parse(savedQuery)) {
         setSearchState(JSON.parse(savedQuery));
@@ -33,6 +35,10 @@ const MainPage = () => {
     },
     [currentSearch]
   );
+
+  useEffect(() => {
+    setSearchState(searchState);
+  }, [currentIndex]);
 
   useEffect(() => {
     delayedQuery(currentSearch);
@@ -61,17 +67,47 @@ const MainPage = () => {
     return text;
   };
 
+  const handleKeyPress = (e: any) => {
+    console.log(e);
+    console.log(currentIndex);
+    if (e.key === 'ArrowDown') {
+      if (currentIndex === null) {
+        setCurrentIndex(0);
+      } else if (currentIndex === 6) {
+        setCurrentIndex(0);
+      } else {
+        setCurrentIndex(currentIndex + 1);
+      }
+      console.log(searchState);
+    } else if (e.key === 'ArrowUp') {
+      if (currentIndex === null) {
+        setCurrentIndex(0);
+      } else if (currentIndex === 0) {
+        setCurrentIndex(6);
+      } else {
+        setCurrentIndex(currentIndex - 1);
+      }
+    } else if (e.key === 'Enter') {
+      setCurrentSearch(searchState[currentIndex].sickNm);
+    }
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+  };
   return (
     <Container>
       <MainTitle>
         국내 모든 임상시험 검색하고 <br></br> 온라인으로 참여하기
       </MainTitle>
-      <SearchForm searchFocus={searchFocus}>
+      <SearchForm onSubmit={handleSubmit} searchFocus={searchFocus}>
         <FaSearch />
         <SearchInput
           name="input"
+          onKeyDown={handleKeyPress}
           ref={inputRef}
           onChange={handleSearch}
+          value={currentSearch}
           onFocus={() => setSearchFocus(true)}
           onBlur={() => setSearchFocus(false)}
           placeholder="질환명을 입력해 주세요"
@@ -82,14 +118,21 @@ const MainPage = () => {
       {searchFocus ? (
         <SearchInfoContainer>
           <RecommendSearchText>추천 검색어</RecommendSearchText>
-          {searchState?.map((item: any) => {
-            return (
-              <SearchInfoItemWrapper key={item.sickCd}>
-                <FaSearch></FaSearch>
-                {highlightIncludedText(item.sickNm)}
-              </SearchInfoItemWrapper>
-            );
-          })}
+          {searchState.length > 0 ? (
+            searchState?.map((item: any, index: number) => {
+              return (
+                <SearchInfoItemWrapper
+                  currentIndexBool={currentIndex === index}
+                  key={index}
+                >
+                  <FaSearch></FaSearch>
+                  {highlightIncludedText(item.sickNm)}
+                </SearchInfoItemWrapper>
+              );
+            })
+          ) : (
+            <div>검색어 없음</div>
+          )}
         </SearchInfoContainer>
       ) : (
         ''
@@ -99,6 +142,11 @@ const MainPage = () => {
 };
 
 export default MainPage;
+
+interface SearchInfoItemWrapper {
+  currentIndexBool: boolean;
+  key: number;
+}
 
 const Container = styled.div`
   margin: auto;
@@ -155,9 +203,11 @@ const SearchInfoContainer = styled.div`
   padding: 20px;
 `;
 
-const SearchInfoItemWrapper = styled.div`
+const SearchInfoItemWrapper = styled.div<SearchInfoItemWrapper>`
+  background-color: ${(props) =>
+    props.currentIndexBool ? props.theme.colors.LIGHT_GRAY : ''};
   display: flex;
-  margin-bottom: 16px;
+  padding: 8px 4px;
 `;
 
 const RecommendSearchText = styled.div`

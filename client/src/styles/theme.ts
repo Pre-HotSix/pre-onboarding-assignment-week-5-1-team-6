@@ -4,6 +4,7 @@ type Colors = {
   WHITE: string;
   SUB_COLOR: string;
   GRAY: '#96AAB6';
+  LIGHT_GRAY: '#EFF3F7';
 };
 
 type FontSize = {
@@ -20,6 +21,7 @@ const colors: Colors = {
   WHITE: '#ffffff',
   SUB_COLOR: '#367ae1',
   GRAY: '#96AAB6',
+  LIGHT_GRAY: '#EFF3F7',
 };
 
 const fontSize: FontSize = {
