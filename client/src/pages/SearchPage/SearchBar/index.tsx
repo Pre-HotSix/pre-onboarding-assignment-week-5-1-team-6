@@ -22,11 +22,11 @@ export default function SearchBar() {
     dispatch(updateSearchText(filterText));
     const cacheData = Storage.get(filterText);
     if (cacheData) {
-      dispatch(updateResult(cacheData));
+      dispatch(updateResult(cacheData.slice(0, 7)));
     } else {
       const { data } = await getData(filterText);
       Storage.set(filterText, data);
-      dispatch(updateResult(data));
+      dispatch(updateResult(data.slice(0, 7)));
     }
   };
 
