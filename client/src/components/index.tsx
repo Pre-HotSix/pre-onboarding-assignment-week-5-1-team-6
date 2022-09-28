@@ -1,5 +1,2 @@
-const Index = () => {
-  return <div></div>;
-};
-
-export default Index;
+// export { ReactComponent as SearchBar } from './Search';
+export {};

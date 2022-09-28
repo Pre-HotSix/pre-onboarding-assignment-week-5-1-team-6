@@ -19,5 +19,17 @@ export const GlobalStyle = createGlobalStyle`
     ul {
         list-style: none;
     }
+    input,
+    select,
+    button {
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+        background: none;
+    }
+    button {
+        background: none;
+        cursor: pointer;
+    }
 }
 `;
