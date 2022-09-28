@@ -22,7 +22,6 @@ https://user-images.githubusercontent.com/103626175/192815949-aaf08277-58d6-4940
 | [이종호](https://github.com/devfrank9)        | 프론트엔드 | 원피스 완결 전에 오픈소스 컨트리뷰터 달기 |
 | [민유경](https://github.com/MINYUKYUNG)       | 프론트엔드 | 10월 안에 취직!                           |
 | [강다현](https://github.com/KKangdaa)         | 프론트엔드 | 실무를 아는 신입개발자 되기               |
-ㅌ
 <br/>
 
 ## Commit & Merge Convention
