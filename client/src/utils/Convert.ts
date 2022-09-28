@@ -1,4 +1,4 @@
-import { Sick } from '../utils/Types';
+import { Sick } from 'utils/Types';
 
 export const ConvertToString = (json: object): string => JSON.stringify(json);
 
