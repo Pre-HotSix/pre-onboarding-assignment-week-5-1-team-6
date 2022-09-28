@@ -1,5 +1,9 @@
 type Colors = {
   MAIN_COLOR: string;
+  BACKGROUND_COLOR: string;
+  WHITE: string;
+  SUB_COLOR: string;
+  GRAY: '#96AAB6';
 };
 
 type FontSize = {
@@ -12,6 +16,10 @@ type FontSize = {
 
 const colors: Colors = {
   MAIN_COLOR: '#067be8',
+  BACKGROUND_COLOR: '#cfe9fe',
+  WHITE: '#ffffff',
+  SUB_COLOR: '#367ae1',
+  GRAY: '#96AAB6',
 };
 
 const fontSize: FontSize = {
