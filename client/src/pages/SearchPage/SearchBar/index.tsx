@@ -18,6 +18,23 @@ export default function SearchBar() {
     dispatch(updateResult([]));
   };
 
+  const changeSearchTerms = async (filterText: string) => {
+    dispatch(updateSearchText(filterText));
+    const cacheData = Storage.get(filterText);
+    if (cacheData) {
+      dispatch(updateResult(cacheData));
+    } else {
+      const { data } = await getData(filterText);
+      Storage.set(filterText, data);
+      dispatch(updateResult(data));
+    }
+  };
+
+  const searching = (e: ChangeEvent) => {
+    const filterText = e.target.value.trim();
+    filterText ? changeSearchTerms(filterText) : initDispatch();
+  };
+
   const debounce = (
     callback: (e: ChangeEvent) => void,
     delay: number | undefined
@@ -28,22 +45,6 @@ export default function SearchBar() {
       clearTimeout(timeout);
       timeout = setTimeout(() => callback(args), delay);
     };
-  };
-
-  const searching = async (e: ChangeEvent) => {
-    const filterText = e.target.value.trim();
-    if (!filterText) initDispatch();
-    else {
-      dispatch(updateSearchText(filterText));
-      const cacheData = Storage.get(filterText);
-      if (cacheData) {
-        dispatch(updateResult(cacheData.slice(0, 7)));
-      } else {
-        const { data } = await getData(filterText);
-        Storage.set(filterText, data);
-        dispatch(updateResult(data.slice(0, 7)));
-      }
-    }
   };
 
   const searchTerms = useCallback(
