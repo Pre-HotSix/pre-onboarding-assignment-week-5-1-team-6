@@ -17,10 +17,10 @@ export default function SearchResult() {
   const keyboardListener = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown') {
-        count < result.length - 1 ? setCount((prev) => prev + 1) : setCount(0);
+        count < result.length - 1 && setCount((prev) => prev + 1);
       }
       if (e.key === 'ArrowUp') {
-        count > 0 ? setCount((prev) => prev - 1) : setCount(result.length - 1);
+        count > 0 && setCount((prev) => prev - 1);
       }
     },
     [count, result]
@@ -32,6 +32,10 @@ export default function SearchResult() {
       window.removeEventListener('keydown', keyboardListener);
     };
   }, [keyboardListener]);
+
+  useEffect(() => {
+    setCount(-2);
+  }, [searchInput]);
 
   return (
     <>
