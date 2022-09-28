@@ -22,7 +22,7 @@ https://user-images.githubusercontent.com/103626175/192815949-aaf08277-58d6-4940
 | [이종호](https://github.com/devfrank9)        | 프론트엔드 | 원피스 완결 전에 오픈소스 컨트리뷰터 달기 |
 | [민유경](https://github.com/MINYUKYUNG)       | 프론트엔드 | 10월 안에 취직!                           |
 | [강다현](https://github.com/KKangdaa)         | 프론트엔드 | 실무를 아는 신입개발자 되기               |
-
+ㅌ
 <br/>
 
 ## Commit & Merge Convention
@@ -41,26 +41,24 @@ https://user-images.githubusercontent.com/103626175/192815949-aaf08277-58d6-4940
 
 ## 실행 방법
 
-레포지토리를 `clone` 합니다
-
+1. 레포지토리를 `clone` 합니다
 ```markdown
 $ git clone https://github.com/Pre-HotSix/pre-onboarding-assignment-week-5-1-team-6
 ```
-
-dependencies를 설치합니다
-
+2. server 실행합니다
 ```markdown
+$ cd server
+$ npm start
+```
+
+3. dependencies를 설치하고, 프로젝트를 실행합니다
+```markdown
+$ cd client
 $ npm install
+$ npm start
 ```
 
-
-api 서버를 실행합니다
-
-```markdown
-$ npm run api
-```
-
-프로젝트를 실행합니다
+4. 프로젝트를 실행합니다
 
 ```markdown
 $ npm start
@@ -74,6 +72,7 @@ $ npm start
 root
 ├── .eslintrc
 ├── .vscode
+├── tsconfig.json
 ├── .prettierrc
 ├── package-lock.json
 ├── package.json
@@ -88,8 +87,8 @@ root
     ├── store
     ├── styles
     ├── utils
-    ├── App.jsx
-    └── index.js
+    ├── App.tsx
+    └── index.ts
 ```
 
 | 폴더       | 구분                                    |
@@ -105,73 +104,21 @@ root
 <br/>
 
 ## 과제범위
-
-- 질환명 검색시 API 호출 통해서 검색어 추천 기능 구현
-    
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/81d5016d-ca92-494c-a90c-5458ffde01c5/Untitled.png)
-    
-    - 사용자가 입력한 텍스트와 일치하는 부분 볼드처리
-        - 예)
-            - 사용자 입력: 담낭
-            추천 검색어:  **담낭**의 악성 신생물, **담낭**염, **담낭**의 기타 질환, 달리 분류된 질환에서의 **담낭**, 담도 및 췌장의 장애
-    - 검색어가 없을 시 “검색어 없음” 표출
-- API 호출 최적화
-    - API 호출별로 로컬 캐싱 구현
-        - 캐싱 기능을 제공하는 라이브러리 사용 금지(React-Query 등)
-        - 캐싱을 어떻게 기술했는지에 대한 내용 README에 기술
-    - 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
-        - README에 전략에 대한 설명 기술
-    - API를 호출할 때 마다 `console.info("calling api")` 출력을 통해 콘솔창에서 API 호출 횟수 확인이 가능하도록 설정
-- 키보드만으로 추천 검색어들로 이동 가능하도록 구현
-    - 사용법 README에 기술
-
+[한국임상정보](https://clinicaltrialskorea.com/) 검색영역을 클론하기
+<br/>
 ## 요구사항
 🛠 질환명 검색시 API 호출 통해서 검색어 추천 기능 구현
     - 사용자가 입력한 텍스트와 일치하는 부분 볼드처리
         - 예) 사용자 입력: 담낭
              추천 검색어:  **담낭**의 악성 신생물, **담낭**염, **담낭**의 기타 질환, 달리 분류된 질환에서의 **담낭**, 담도 및 췌장의 장애
     - 검색어가 없을 시 “검색어 없음” 표출
+<br/>
 🛠 API 호출 최적화
     - API 호출별로 로컬 캐싱 구현
     - 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
     - API를 호출할 때 마다 `console.info("calling api")` 출력을 통해 콘솔창에서 API 호출 횟수 확인이 가능하도록 설정
-
-<br />
-
-## 기술 스택
-
-![React](https://img.shields.io/badge/React-61DAFB.svg?style=for-the-badge&logo=React&logoColor=black) ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) 
-![Redux](https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white) 
-![axios](https://img.shields.io/badge/Axios-5A29E4.svg?style=for-the-badge&logo=Axios&logoColor=white) 
-![styled-components](https://img.shields.io/badge/styledcomponents-DB7093.svg?style=for-the-badge&logo=styled-components&logoColor=white)
-
-<br />
-
-## Best Practice
-
-### 1. styles폴더내에 theme파일로 css의 스타일을 정의해서 썼습니다. 
-
-💡 이유 : 혹여나 스타일이 바껴도 유지보수에 편하며, 같은 색깔계열에 조금씩 다른 rgb값이 없도록 통일했습니다.
-
-### 2. 캐싱을 Session Storage로 관리했습니다.
-
-💡 이유 : Local Storage로 관리시 반영구적 정보가 유지되기떄문에 Session Storage에 저장했습니다.
-
-### 3. 키보드 움직임 관련 상태를 만들어서 해당값과, 추천검색어 index값을 비교해서 일치하는값의 background에 변화를 줬습니다.
-
-💡 이유 : 상태를 관리해야 해당값으로 변경이 가능해서 그렇게 관리했습니다.
-
-### 4. redux로 상태관리를 했습니다.
-
-💡 이유 : 기존 useState으로 관리하면 props드릴링이 잦아져 가독성이 나빠지므로 redux로 해결했습니다.
-
-### 5. params로 페이지네이션, 검색을 관리해서 언제든 도메인에 접근 가능하게 했습니다.
-
-💡 이유 : 특정 페이지의 링크를 통해서도 접근할 수 있고, Query String으로 정보를 얻어 사용할 수도 있기 때문입니다.
-
-### 6. Tailwind CSS를 사용해서 CSS 적용을 하였습니다.
-
-💡 이유 : 클래스명으로 선언을 함으로써 간편하게 사용이 가능하며, HTML와 CSS 파일을 별도로 관리할 필요가 없습니다. 또한, 일관된 디자인과 스타일과 쉽고 자유로운 커스텀이 가능합니다. 추가적으로 Visual Studio Code의 확장 프로그램으로 Tailwind CSS IntelliSense를 설치하면, 클래스 자동완성 기능도 사용할 수 있습니다.
+ <br/>
+🛠 키보드만으로 추천 검색어들로 이동 가능하도록 구현
 
 <br/>
 
@@ -201,4 +148,39 @@ index와 비교한값이 같으면 해당 Boolean을 props로 styled Component�
 ### 2. 작동 동작은 다음과 같습니다.  
 - 해당 값의 상태를 만든후, 키보드 입력 event를 만들어서 윗 방향키면 값+1, 아래 방향키면 값-1해서 index값과 비교
 - 비교한 값의 Boolean을 styled Component에 Props로 전달해서 값이 true라면 background Color 변경
+
+<br />
+
+## 기술 스택
+
+![React](https://img.shields.io/badge/React-61DAFB.svg?style=for-the-badge&logo=React&logoColor=black) ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) 
+![Redux](https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white) 
+![axios](https://img.shields.io/badge/Axios-5A29E4.svg?style=for-the-badge&logo=Axios&logoColor=white) 
+![styled-components](https://img.shields.io/badge/styledcomponents-DB7093.svg?style=for-the-badge&logo=styled-components&logoColor=white)
+
+<br />
+
+## Best Practice
+
+### 1. styles 폴더내 theme 파일로, 전역 css의 스타일을 정의했습니다 
+
+💡 이유 : 전역적으로 사용되는 스타일의 유지보수에 편리하며, 같은 색깔계열에 조금씩 다른 rgb값이 아닌 통일되는 색상을 사용할 수 있습니다.
+
+### 2. 캐싱 데이터를 Session Storage 로 관리했습니다
+
+💡 이유 : Session Storage 는 브라우저를 종료할때 따로 데이터를 삭제해주지 않아도 되고, 새로고침 시에도 데이터가 남아있기때문에, Session Storage 를 사용했습니다. 추가적으로, Local Storage 로 관리시에는 브라우저를 종료한 후에도 정보가 영구적으로 유지되고, 로컬에 객체로 관리시에는 새로고침 시에 캐싱 데이터가 리셋되기 때문에, 해당 방법들을 사용하지 않았습니다.
+
+### 3. 키보드 움직임 관련 상태를 만들어서 해당값과, 추천검색어 index값을 비교해서 일치하는값의 background에 변화를 줬습니다.
+
+💡 이유 : 상태를 관리해야 해당값으로 변경이 가능해서 그렇게 관리했습니다.
+
+### 4. redux로 상태관리를 했습니다.
+
+💡 이유 : 기존 useState으로 관리하면 props드릴링이 잦아져 가독성이 나빠지므로 redux로 해결했습니다.
+
+### 5. utils폴더에 자주 쓰는 method를 정의해서 사용했습니다.
+
+💡 이유 : 재사용성 + 혹시나 method의 구현방식이 달라지면 유지보수에 편하기 떄문에 따로 정의해서 사용했습니다.
+
+
 
