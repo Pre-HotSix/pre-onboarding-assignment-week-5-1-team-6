@@ -23,8 +23,7 @@ export const Form = styled.form`
   max-width: 360px;
   height: 50px;
   display: flex;
-  margin: 10px 10px;
-  border: 1px solid white;
+  margin: 20px 10px;
   border-radius: 30px;
   overflow: hidden;
 `;
@@ -33,7 +32,10 @@ export const SearchInput = styled.input`
   width: 80%;
   border: 1px solid white;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};;
-  padding: 10px 10px;
+  padding: 10px 20px;
+  :focus-visible {
+    outline: 0;
+  }
 `;
 
 export const SearchButton = styled.button`
@@ -45,6 +47,9 @@ export const SearchButton = styled.button`
   font-size: 0;
   letter-spacing: 0;
   word-spacing: 0;
+  :focus-visible {
+    outline: 0;
+  }
 `;
 
 export const ListBox = styled.div`
