@@ -13,4 +13,7 @@ export const Container = styled.div<{ isResult: boolean }>`
   ::-webkit-scrollbar {
     display: none;
   }
+  @media screen and (max-width: 750px) {
+    height: ${({ isResult }) => (isResult ? '65vh' : '8vh')};
+  }
 `;

@@ -7,7 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
-  padding-top: 30vh;
+  padding-top: 20vh;
 `;
 
 export const SearchContainer = styled.div`
