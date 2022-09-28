@@ -19,3 +19,7 @@ export const RecommendTitle = styled.div`
   margin-bottom: 5px;
   padding: 0 15px;
 `;
+
+export const BoldText = styled.span`
+  font-weight: 700;
+`;

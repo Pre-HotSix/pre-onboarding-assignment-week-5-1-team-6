@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { SearchBar } from '../pages/index';
+import { SearchBar } from 'pages/index';
 
 export default function Router() {
   return (

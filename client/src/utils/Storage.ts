@@ -1,4 +1,9 @@
+import { Sick } from 'utils/Types';
+import { ConvertToJson, ConvertToString } from './Convert';
+
 export const Storage = {
-  get: (key: string): string | null => sessionStorage.getItem(key),
-  set: (key: string, data: string): void => sessionStorage.setItem(key, data),
+  get: (key: string): Sick[] | null =>
+    ConvertToJson(sessionStorage.getItem(key)),
+  set: (key: string, data: object): void =>
+    sessionStorage.setItem(key, ConvertToString(data)),
 };

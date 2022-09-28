@@ -1,17 +1,13 @@
 import * as S from './style';
 import { FaSearch } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { Sick } from '../../utils/Types';
+import { RootState } from 'store';
+import { Sick } from 'utils/Types';
 import { useCallback, useEffect, useState } from 'react';
 
 export default function SearchResult() {
-  const result = useSelector((state: RootState) => {
-    return state.result.value;
-  });
-  const searchInput = useSelector((state: RootState) => {
-    return state.search.value;
-  });
+  const result = useSelector((state: RootState) => state.result.value);
+  const searchInput = useSelector((state: RootState) => state.search.value);
   const [count, setCount] = useState(-2);
 
   const keyboardListener = useCallback(
@@ -45,7 +41,7 @@ export default function SearchResult() {
           <FaSearch size={12} />
           <S.RowText>
             {data.sickNm.split(searchInput)[0]}
-            <span style={{ fontWeight: 700 }}>{searchInput}</span>
+            <S.BoldText>{searchInput}</S.BoldText>
             {data.sickNm.split(searchInput)[1]}
           </S.RowText>
         </S.Row>
