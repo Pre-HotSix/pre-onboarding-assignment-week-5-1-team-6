@@ -22,7 +22,6 @@ https://user-images.githubusercontent.com/103626175/192815949-aaf08277-58d6-4940
 | [이종호](https://github.com/devfrank9)        | 프론트엔드 | 원피스 완결 전에 오픈소스 컨트리뷰터 달기 |
 | [민유경](https://github.com/MINYUKYUNG)       | 프론트엔드 | 10월 안에 취직!                           |
 | [강다현](https://github.com/KKangdaa)         | 프론트엔드 | 실무를 아는 신입개발자 되기               |
-ㅌ
 <br/>
 
 ## Commit & Merge Convention
@@ -178,7 +177,7 @@ index와 비교한값이 같으면 해당 Boolean을 props로 styled Component�
 
 💡 이유 : 모듈을 나눌 경우, useState 로만 관리하면 props 드릴링이 잦아져, 컴포넌트 간의 의존성이 높아지고 가독성도 떨어지기때문에 redux 로 상태관리하였습니다.
 
-### 5. 자주 쓰는 method 는 utils 폴더 정의했습니다
+### 5. 자주 쓰는 method 는 utils 폴더에 정의했습니다
 
 💡 이유 : 재사용성이 높아지고, method의 구현방식이 달라질 경우에 유지보수가 편하기떄문에 따로 정의하여 사용했습니다.
 
