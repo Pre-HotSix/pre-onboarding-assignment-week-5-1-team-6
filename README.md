@@ -9,6 +9,8 @@
 
 ## 구현 영상
 
+https://user-images.githubusercontent.com/103626175/192815949-aaf08277-58d6-4940-870a-fc4958ab7358.mp4
+
 <br/>
 
 ## 팀원들을 소개합니다.
@@ -125,19 +127,15 @@ root
 
 ### 2. 캐싱을 Session Storage로 관리했습니다.
 
-💡 이유 : Local Storage로 관리시 반영구적 정보가 유지되기떄문에 Session Storage에 저장했고, 검색 api호출하기 전에 해당값을 Session Storage와 비교해서 값이 있으면 해당값으로 상태를 업데이트 하고 없다면 api를 호출하는 방식으로 구현했습니다.
+💡 이유 : Local Storage로 관리시 반영구적 정보가 유지되기떄문에 Session Storage에 저장했습니다.
 
-### 3. 입력마다 API를 호출하지 않도록 setTimeout으로 term을 만들어 호출했습니다.  
-
-💡 이유 : setTimeout과 useCallback을 사용해서 debounce함수를 만들어서 
-
-### 4. 키보드 움직임 관련 상태를 만들어서 해당값과, 추천검색어 index값을 비교해서 일치하는값의 background에 변화를 줬습니다.
+### 3. 키보드 움직임 관련 상태를 만들어서 해당값과, 추천검색어 index값을 비교해서 일치하는값의 background에 변화를 줬습니다.
 
 💡 이유 : 상태를 관리해야 해당값으로 변경이 가능해서 그렇게 관리했습니다.
 
-### 5. recoil과 react-query로 상태관리를 했습니다.
+### 4. redux로 상태관리를 했습니다.
 
-💡 이유 : 서버 데이터 상태 관리와 클라이언트 데이터 상태 관리를 분리하기 위해, 서버 데이터관리는 react-query를, 클라이언트 데이터관리는 recoil을 사용했습니다.
+💡 이유 : 기존 useState으로 관리하면 props드릴링이 잦아져 가독성이 나빠지므로 redux로 해결했습니다.
 
 ### 6. params로 페이지네이션, 검색을 관리해서 언제든 도메인에 접근 가능하게 했습니다.
 
@@ -146,3 +144,32 @@ root
 ### 7. Tailwind CSS를 사용해서 CSS 적용을 하였습니다.
 
 💡 이유 : 클래스명으로 선언을 함으로써 간편하게 사용이 가능하며, HTML와 CSS 파일을 별도로 관리할 필요가 없습니다. 또한, 일관된 디자인과 스타일과 쉽고 자유로운 커스텀이 가능합니다. 추가적으로 Visual Studio Code의 확장 프로그램으로 Tailwind CSS IntelliSense를 설치하면, 클래스 자동완성 기능도 사용할 수 있습니다.
+
+## 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
+### 1. debounce(실행시킬 콜백함수, 지연시킬 시간) 함수를 구현 및 사용했습니다.  
+연이어 호출되는 함수들 중 마지막 함수만 호출되도록, 이벤트 발생이 많을때 마지막 이벤트만을 실행시킵니다.
+delay 시간 이내에 함수가 반복 호출될 경우, setTimeout 이 clearTimeout 되므로 실행되지 않습니다.
+함수의 반복 호출이 멈춰진 경우, delay 시간 후에 callback 함수가 실행됩니다.
+### 2. 작동 동작은 다음과 같습니다.  
+- input 태그의 값을 입력하면, 해당 event 매개변수로 받은 debounce 함수가 실행됩니다.
+- delay 시간 동안에는 input 태그의 값이 여러 번 변경되어도 clearTimeout 됩니다.
+- delay 시간이 다되면, debounce 의 콜백함수가 실행됩니다.
+
+## API 호출별로 로컬 캐싱 구현
+### 1. Session Storage에 저장하고, 값을 비교해 api를 호출했습니다. 
+해당 값을 Session Storage와 비교해서 존재하지 않는값이면 api를 호출합니다.
+해당값이 Session Storage에 존재하는 값이라면 Session Storage의 값을 get해서 사용합니다.
+### 2. 작동 동작은 다음과 같습니다.  
+- if문으로 Session Storage에서 해당 쿼리를 인자로 get해서 값이 있는지 비교
+- 값이 있다면 Session Storage에서 해당 쿼리값으로 get해서 상태를변경
+- 값이 없다면 해당 쿼리를 인자로 Api호출해서 결과값으로 상태를 변경
+
+## 키보드만으로 추천 검색어들로 이동 가능하도록 구현
+### 1. Session Storage에 저장하고, 값을 비교해 api를 호출했습니다. 
+해당 값을 Session Storage와 비교해서 존재하지 않는값이면 api를 호출합니다.
+해당값이 Session Storage에 존재하는 값이라면 Session Storage의 값을 get해서 사용합니다.
+### 2. 작동 동작은 다음과 같습니다.  
+- if문으로 Session Storage에서 해당 쿼리를 인자로 get해서 값이 있는지 비교
+- 값이 있다면 Session Storage에서 해당 쿼리값으로 get해서 상태를변경
+- 값이 없다면 해당 쿼리를 인자로 Api호출해서 결과값으로 상태를 변경
+
